@@ -129,6 +129,8 @@ app.get('/', (req, res) => {
 app.post('/submit', (req, res) => {
   res.send('Request received ✅');
 });
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
