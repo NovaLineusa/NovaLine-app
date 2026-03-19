@@ -518,67 +518,7 @@ app.get('/', (req, res) => {
         </div>
       </div>
 
-      <button class="chat-toggle" onclick="toggleChat()">Chat with NovaLine</button>
-
-      <div class="chat-box" id="chatBox">
-        <div class="chat-header">NovaLine Assistant 🤖</div>
-        <div class="chat-body" id="chatBody">
-          <div class="bot-msg">Hi 👋 I can help you choose the right NovaLine service.</div>
-          <div class="bot-msg">What do you need today?</div>
-        </div>
-
-        <div class="chat-options" id="chatOptions">
-          <button class="chat-option" onclick="reply('Personal Number')">I need a personal number</button>
-          <button class="chat-option" onclick="reply('Business Line')">I need a business line</button>
-          <button class="chat-option" onclick="reply('Port-Ready Number')">I need a port-ready number</button>
-        </div>
-      </div>
-
-      <script>
-        function toggleChat() {
-          const chatBox = document.getElementById('chatBox');
-          chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function reply(choice) {
-          const chatBody = document.getElementById('chatBody');
-          const userMsg = document.createElement('div');
-          userMsg.className = 'user-msg';
-          userMsg.textContent = choice;
-          chatBody.appendChild(userMsg);
-
-          const botMsg = document.createElement('div');
-          botMsg.className = 'bot-msg';
-
-          if (choice === 'Personal Number') {
-            botMsg.textContent = 'Personal numbers are great for privacy, second lines, and everyday use. I’m taking you to the form now.';
-            setServiceValue('Personal Number');
-          } else if (choice === 'Business Line') {
-            botMsg.textContent = 'Business lines are best for branding and keeping work separate. I’m taking you to the form now.';
-            setServiceValue('Business Line');
-          } else {
-            botMsg.textContent = 'Port-ready numbers are for transfer-focused needs. I’m taking you to the form now.';
-            setServiceValue('Port-Ready Number');
-          }
-
-          chatBody.appendChild(botMsg);
-          chatBody.scrollTop = chatBody.scrollHeight;
-
-          setTimeout(() => {
-            const formSection = document.getElementById('get-started');
-            if (formSection) {
-              formSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, 700);
-        }
-
-        function setServiceValue(value) {
-          const serviceSelect = document.getElementById('service');
-          if (serviceSelect) {
-            serviceSelect.value = value;
-          }
-        }
-      </script>
+   
     </body>
   </html>
   `);
