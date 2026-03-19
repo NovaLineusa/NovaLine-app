@@ -482,10 +482,14 @@ app.get('/', (req, res) => {
                 Tell us what kind of line you need and we’ll guide you to the best fit.
               </p>
 
-              <form action="/submit" method="POST">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" />
+              <form action="https://formspree.io/f/xkoqkdnb" method="POST">
+              <input type="hidden" name="_subject" value="New NovaLine Request">
+              <input type="hidden" name="_captcha" value="false">
+                <<label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
 
+              <label for="email">Email</label>
+              <input type="email" name="email" placeholder="Your email" required />
                 <label for="service">Service Type</label>
                 <select id="service" name="service">
                   <option>Personal Number</option>
