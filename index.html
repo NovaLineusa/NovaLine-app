@@ -77,7 +77,7 @@ async function submitLead(e) {
     if (response.ok) {
       alert("Request sent! Check your phone 📲");
     } else {
-      alert(data.message || "Something went wrong.");
+      alert(JSON.stringify(data));
     }
   } catch (err) {
     alert("Network error.");
