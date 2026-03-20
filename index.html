@@ -54,37 +54,44 @@
   <button type="submit">Get Started</button>
 </form>
 
-<p style="margin-top: 15px; font-size: 14px; color: #777;">
-  ⚡ Instant activation • Keep your number • Nationwide coverage
-</p>
-
 <script>
+window.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("leadForm");
+
+  if (!form) {
+    alert("Form not found");
+    return;
+  }
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     let phone = document.getElementById("phone").value.trim();
-if (!phone.startsWith("+1")) {
-  phone = "+1" + phone.replace(/\D/g, "");
-}
+    if (!phone.startsWith("+1")) {
+      phone = "+1" + phone.replace(/\D/g, "");
+    }
 
-    const response = await fetch("/api/index", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ phone })
-    });
+    try {
+      const response = await fetch("/api/index", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ phone })
+      });
 
-    if (response.ok) {
-  alert("Request sent! Check your phone 📲");
-} else {
-  const data = await response.json().catch(() => ({}));
-  alert(data.message || "Something went wrong.");
-}
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        alert("Request sent! Check your phone 📲");
+      } else {
+        alert(data.message || "Something went wrong.");
+      }
+    } catch (err) {
+      alert("Network error.");
     }
   });
+});
 </script>
 
 </body>
