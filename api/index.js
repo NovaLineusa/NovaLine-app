@@ -25,9 +25,10 @@ module.exports = async (req, res) => {
       to: phone
     });
 
-    return res.status(200).json({ message: "Success" });
-  } catch (error) {
-    console.error("Twilio error:", error);
-    return res.status(500).json({ message: "Error sending SMS" });
-  }
+    } catch (error) {
+  console.error("Twilio error:", error);
+  return res.status(500).json({
+    message: error.message || "Error sending SMS"
+  });
+}
 };
