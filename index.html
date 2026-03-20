@@ -72,13 +72,13 @@ async function submitLead(e) {
       body: JSON.stringify({ phone: phone })
     });
 
-    const data = await response.json().catch(() => ({}));
+    const text = await response.text();
 
-    if (response.ok) {
-      alert("Request sent! Check your phone 📲");
-    } else {
-      alert(JSON.stringify(data));
-    }
+if (response.ok) {
+  alert("Request sent! Check your phone 📲");
+} else {
+  alert("Status: " + response.status + " | " + text);
+}
   } catch (err) {
     alert("Network error.");
   }
