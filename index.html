@@ -65,7 +65,10 @@
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const phone = document.getElementById("phone").value;
+    let phone = document.getElementById("phone").value.trim();
+if (!phone.startsWith("+1")) {
+  phone = "+1" + phone.replace(/\D/g, "");
+}
 
     const response = await fetch("/api/index", {
       method: "POST",
