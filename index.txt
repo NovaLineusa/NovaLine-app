@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  input {
+    padding: 12px;
+    width: 250px;
+    border-radius: 8px;
+    border: none;
+    margin-right: 10px;
+  }
+
+  button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #ff007f;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #ff3399;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>NovaLine</h1>
+
+<form id="leadForm">
+  <input type="text" id="phone" placeholder="Enter your phone number" required />
+  <button type="submit">Get Started</button>
+</form>
+
+<script>
+const form = document.querySelector("#leadForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const phone = document.querySelector("#phone").value;
+
+  await fetch("/api/index", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ phone })
+  });
+
+  alert("Request sent! Check your phone 📲");
+});
+</script>
+
+</body>
+</html>
