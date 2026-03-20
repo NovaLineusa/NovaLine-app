@@ -1,3 +1,10 @@
+const twilio = require("twilio");
+require("dotenv").config();
+
+const client = twilio(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 const express = require('express');
 const app = express();
 
@@ -596,4 +603,23 @@ app.post('/submit', (req, res) => {
   `);
 });
 
-module.exports = app;
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    const { phone } = req.body;
+
+    try {
+      await client.messages.create({
+        body: "NovaLine: We received your request. Setup will begin shortly 🚀",
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: phone
+      });
+
+      return res.status(200).json({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Error" });
+    }
+  }
+
+  return res.status(405).json({ message: "Method not allowed" });
+}

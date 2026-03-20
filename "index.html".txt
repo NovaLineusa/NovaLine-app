@@ -4,7 +4,34 @@
 
 <h1>NovaLine</h1>
 
+<form id="leadForm">
+  <input type="text" id="phone" placeholder="Enter your phone number" required />
+  <button type="submit">Get Started</button>
+</form>
+
+<!-- Tidio Chat -->
 <script src="//code.tidio.co/w8d5hptk5jvfc5y6kjrsrfwizvh6dn5u.js" async></script>
+
+<!-- FORM → TWILIO -->
+<script>
+  const form = document.querySelector("#leadForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const phone = document.querySelector("#phone").value;
+
+    await fetch("/api/index", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ phone })
+    });
+
+    alert("Request sent! Check your phone 📲");
+  });
+</script>
 
 </body>
 </html>
