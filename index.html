@@ -44,18 +44,44 @@
 
 <h1>NovaLine</h1>
 
+<h1>NovaLine</h1>
+
 <p style="margin-bottom: 20px; color: #aaa;">
   Unlimited Talk, Text & Data. No Contracts. No Limits.
 </p>
 
 <form id="leadForm">
-  <input type="text" id="phone" placeholder="Enter your phone number" required />
+  <input type="text" id="phone" placeholder="Enter your phone number" required>
   <button type="submit">Get Started</button>
 </form>
 
 <p style="margin-top: 15px; font-size: 14px; color: #777;">
   ⚡ Instant activation • Keep your number • Nationwide coverage
 </p>
+
+<script>
+  const form = document.getElementById("leadForm");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const phone = document.getElementById("phone").value;
+
+    const response = await fetch("/api/index", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ phone })
+    });
+
+    if (response.ok) {
+      alert("Request sent! Check your phone 📲");
+    } else {
+      alert("Something went wrong.");
+    }
+  });
+</script>
 
 </body>
 </html>
