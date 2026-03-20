@@ -49,49 +49,42 @@
   Unlimited Talk, Text & Data. No Contracts. No Limits.
 </p>
 
-<form id="leadForm">
+<form id="leadForm" onsubmit="return submitLead(event)">
   <input type="text" id="phone" placeholder="Enter your phone number" required>
   <button type="submit">Get Started</button>
 </form>
 
 <script>
-window.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("leadForm");
+async function submitLead(e) {
+  e.preventDefault();
 
-  if (!form) {
-    alert("Form not found");
-    return;
+  let phone = document.getElementById("phone").value.trim();
+  if (!phone.startsWith("+1")) {
+    phone = "+1" + phone.replace(/\D/g, "");
   }
 
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  try {
+    const response = await fetch("/api/index", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ phone: phone })
+    });
 
-    let phone = document.getElementById("phone").value.trim();
-    if (!phone.startsWith("+1")) {
-      phone = "+1" + phone.replace(/\D/g, "");
+    const data = await response.json().catch(() => ({}));
+
+    if (response.ok) {
+      alert("Request sent! Check your phone 📲");
+    } else {
+      alert(data.message || "Something went wrong.");
     }
+  } catch (err) {
+    alert("Network error.");
+  }
 
-    try {
-      const response = await fetch("/api/index", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ phone })
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok) {
-        alert("Request sent! Check your phone 📲");
-      } else {
-        alert(data.message || "Something went wrong.");
-      }
-    } catch (err) {
-      alert("Network error.");
-    }
-  });
-});
+  return false;
+}
 </script>
 
 </body>
