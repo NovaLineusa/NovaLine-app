@@ -42,7 +42,6 @@
 
 <body>
 
-<h1>NovaLine</h1>
 
 <h1>NovaLine</h1>
 
@@ -79,9 +78,11 @@ if (!phone.startsWith("+1")) {
     });
 
     if (response.ok) {
-      alert("Request sent! Check your phone 📲");
-    } else {
-      alert("Something went wrong.");
+  alert("Request sent! Check your phone 📲");
+} else {
+  const data = await response.json().catch(() => ({}));
+  alert(data.message || "Something went wrong.");
+}
     }
   });
 </script>
